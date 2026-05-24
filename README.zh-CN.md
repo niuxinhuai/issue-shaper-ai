@@ -15,6 +15,7 @@ Issue Shaper AI 不配置模型也能用规则提取字段并生成结构化 iss
 - 提取标题、摘要、严重程度、环境、复现步骤、实际结果、预期结果
 - 自动推断 `bug`、`priority: high`、`area: navigation`、`needs reproduction` 等标签
 - 可输出可直接执行的 `gh issue create` 命令
+- 支持 `--github-command-only` 只输出纯 GitHub CLI 命令，方便脚本串联
 - 支持 Markdown 和 JSON 输出
 - 支持从文件或 stdin 读取
 - 可选 AI 润色，兼容 OpenAI-compatible 接口
@@ -46,9 +47,12 @@ python3 -m pip install -e .
 ```bash
 issue-shaper-ai examples/raw_bug.txt
 issue-shaper-ai examples/raw_bug.txt --github-url owner/repo
+issue-shaper-ai examples/raw_bug.txt --github-url owner/repo --github-command-only
 issue-shaper-ai examples/raw_bug.txt --format json
 cat crash.log | issue-shaper-ai -
 ```
+
+当你想先把正文写入 `ISSUE.md`，再由脚本或 CI 执行创建 issue 时，可以使用 `--github-command-only`。
 
 可以直接查看生成示例：[`examples/output.md`](examples/output.md) 和 [`examples/output.json`](examples/output.json)。
 

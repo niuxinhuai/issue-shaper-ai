@@ -15,6 +15,7 @@ Issue Shaper AI works without a model by extracting known fields and producing a
 - Extracts title, summary, severity, environment, reproduction steps, actual result, and expected result.
 - Infers useful labels such as `bug`, `priority: high`, `area: navigation`, and `needs reproduction`.
 - Can print a ready-to-run `gh issue create` command.
+- Can print only the raw GitHub CLI command for scripts with `--github-command-only`.
 - Supports Markdown and JSON output.
 - Reads from files or stdin.
 - Optional AI polishing through OpenAI-compatible APIs.
@@ -46,9 +47,12 @@ You can also download built wheel and sdist files from the latest GitHub Release
 ```bash
 issue-shaper-ai examples/raw_bug.txt
 issue-shaper-ai examples/raw_bug.txt --github-url owner/repo
+issue-shaper-ai examples/raw_bug.txt --github-url owner/repo --github-command-only
 issue-shaper-ai examples/raw_bug.txt --format json
 cat crash.log | issue-shaper-ai -
 ```
+
+Use `--github-command-only` when another script or CI step will create the issue after writing the generated body to `ISSUE.md`.
 
 See generated examples in [`examples/output.md`](examples/output.md) and [`examples/output.json`](examples/output.json).
 

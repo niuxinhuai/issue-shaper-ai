@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from issue_shaper_ai.__main__ import github_create_command, issue_data, labels_for
+from issue_shaper_ai.__main__ import github_command_output, github_create_command, issue_data, labels_for
 
 
 class IssueShaperTest(unittest.TestCase):
@@ -28,6 +28,11 @@ class IssueShaperTest(unittest.TestCase):
         self.assertIn("gh issue create --repo owner/repo", command)
         self.assertIn("--label bug", command)
         self.assertIn("--body-file ISSUE.md", command)
+
+    def test_github_command_output_returns_script_only(self):
+        output = github_command_output("owner/repo", "用户反馈：续费白屏")
+        self.assertTrue(output.startswith("gh issue create"))
+        self.assertNotIn("```", output)
 
 
 if __name__ == "__main__":

@@ -101,6 +101,10 @@ def github_create_command(repository, data, body_file="ISSUE.md"):
     return " ".join(shlex.quote(part) for part in parts)
 
 
+def github_command_output(repository, raw, body_file="ISSUE.md"):
+    return github_create_command(repository, issue_data(raw), body_file)
+
+
 def render_issue(text):
     data = issue_data(text)
     output = [
@@ -180,6 +184,7 @@ def main(argv=None):
     parser.add_argument("input", help="Input file, or '-' for stdin")
     parser.add_argument("--format", choices=["markdown", "json"], default="markdown", help="Output format")
     parser.add_argument("--github-url", help="Print a gh issue create command for owner/repo")
+    parser.add_argument("--github-command-only", action="store_true", help="Print only the gh issue create command")
     parser.add_argument("--ai", action="store_true", help="Use an OpenAI-compatible model to polish the issue")
     parser.add_argument("--model", help="Override AI_MODEL for --ai")
     parser.add_argument("--base-url", help="Override AI_BASE_URL for --ai")
@@ -187,6 +192,11 @@ def main(argv=None):
     parser.add_argument("--version", action="version", version="issue-shaper-ai %s" % __version__)
     args = parser.parse_args(argv)
     raw = read_text(args.input)
+    if args.github_command_only:
+        if not args.github_url:
+            raise SystemExit("--github-command-only requires --github-url owner/repo")
+        sys.stdout.write(github_command_output(args.github_url, raw) + "\n")
+        return
     if args.format == "json":
         draft = json.dumps(issue_data(raw), ensure_ascii=False, indent=2) + "\n"
     else:
