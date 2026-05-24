@@ -1,26 +1,45 @@
 # Issue Shaper AI
 
-把随手写的 bug 描述、客服反馈、测试日志整理成清晰的 GitHub Issue。
+[中文文档](README.zh-CN.md)
 
-默认使用本地规则提取标题、严重程度、复现步骤、实际结果和补充信息；配置 `AI_API_KEY` 后可以自动补充更自然的描述。
+Turn rough bug reports, customer feedback, and logs into clean GitHub issues.
 
-## 快速开始
+Issue Shaper AI works without a model by extracting known fields and producing a structured issue. With `AI_API_KEY`, it can polish the draft without inventing missing facts.
+
+## Features
+
+- Extracts title, summary, severity, environment, reproduction steps, actual result, and expected result.
+- Infers useful labels such as `bug`, `priority: high`, `area: navigation`, and `needs reproduction`.
+- Supports Markdown and JSON output.
+- Reads from files or stdin.
+- Optional AI polishing through OpenAI-compatible APIs.
+
+## Install
 
 ```bash
-python3 -m issue_shaper_ai examples/raw_bug.txt
+python3 -m pip install -e .
 ```
 
-从 stdin 读取：
+## Usage
 
 ```bash
-cat crash.log | python3 -m issue_shaper_ai -
+issue-shaper-ai examples/raw_bug.txt
+issue-shaper-ai examples/raw_bug.txt --format json
+cat crash.log | issue-shaper-ai -
 ```
 
-启用 AI 增强：
+Use AI polishing:
 
 ```bash
 export AI_API_KEY="your-key"
-python3 -m issue_shaper_ai examples/raw_bug.txt --ai --output ISSUE.md
+issue-shaper-ai examples/raw_bug.txt --ai --output ISSUE.md
+```
+
+## Development
+
+```bash
+python3 -m pip install -e .
+python3 -m unittest discover -s tests
 ```
 
 ## License
