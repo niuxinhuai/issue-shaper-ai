@@ -1,0 +1,29 @@
+{
+  "title": "会员页点续费偶现白屏。",
+  "summary": "用户反馈：会员页点续费偶现白屏。",
+  "severity": "P1 / blocking",
+  "labels": [
+    "bug",
+    "priority: high",
+    "area: navigation",
+    "needs reproduction"
+  ],
+  "environment": {
+    "device": "Mate 60",
+    "os": "HarmonyOS 5",
+    "app_version": "3.16.8"
+  },
+  "steps_to_reproduce": [
+    "登录老会员账号",
+    "进入会员权益页",
+    "点击顶部续费提醒"
+  ],
+  "actual_result": "页面白屏，有时候控制台看到 route not found",
+  "expected_result": "正常进入续费页",
+  "useful_clues": [
+    "Mentioned `route`; check related logs and code paths.",
+    "Mentioned `not found`; check related logs and code paths.",
+    "Mentioned `白屏`; check related logs and code paths."
+  ],
+  "raw_report": "用户反馈：会员页点续费偶现白屏。\n\n机型：Mate 60\n系统：HarmonyOS 5\n版本：3.16.8\n\n步骤：\n1. 登录老会员账号\n2. 进入会员权益页\n3. 点击顶部续费提醒\n\n结果：页面白屏，有时候控制台看到 route not found\n期望：正常进入续费页"
+}

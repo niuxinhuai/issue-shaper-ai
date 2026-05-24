@@ -1,7 +1,7 @@
 import json
 import unittest
 
-from issue_shaper_ai.__main__ import issue_data, labels_for
+from issue_shaper_ai.__main__ import github_create_command, issue_data, labels_for
 
 
 class IssueShaperTest(unittest.TestCase):
@@ -21,6 +21,13 @@ class IssueShaperTest(unittest.TestCase):
 
     def test_labels_for_api(self):
         self.assertIn("area: api", labels_for("接口超时"))
+
+    def test_github_create_command_quotes_title_and_labels(self):
+        data = issue_data("用户反馈：续费白屏\n结果：route not found")
+        command = github_create_command("owner/repo", data)
+        self.assertIn("gh issue create --repo owner/repo", command)
+        self.assertIn("--label bug", command)
+        self.assertIn("--body-file ISSUE.md", command)
 
 
 if __name__ == "__main__":

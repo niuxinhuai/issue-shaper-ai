@@ -1,5 +1,9 @@
 # Issue Shaper AI
 
+[![CI](https://github.com/niuxinhuai/issue-shaper-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/niuxinhuai/issue-shaper-ai/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.7%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 [中文文档](README.zh-CN.md)
 
 Turn rough bug reports, customer feedback, and logs into clean GitHub issues.
@@ -10,6 +14,7 @@ Issue Shaper AI works without a model by extracting known fields and producing a
 
 - Extracts title, summary, severity, environment, reproduction steps, actual result, and expected result.
 - Infers useful labels such as `bug`, `priority: high`, `area: navigation`, and `needs reproduction`.
+- Can print a ready-to-run `gh issue create` command.
 - Supports Markdown and JSON output.
 - Reads from files or stdin.
 - Optional AI polishing through OpenAI-compatible APIs.
@@ -24,9 +29,12 @@ python3 -m pip install -e .
 
 ```bash
 issue-shaper-ai examples/raw_bug.txt
+issue-shaper-ai examples/raw_bug.txt --github-url owner/repo
 issue-shaper-ai examples/raw_bug.txt --format json
 cat crash.log | issue-shaper-ai -
 ```
+
+See generated examples in [`examples/output.md`](examples/output.md) and [`examples/output.json`](examples/output.json).
 
 Use AI polishing:
 

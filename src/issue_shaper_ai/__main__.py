@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import re
+import shlex
 import sys
 import urllib.error
 import urllib.request
@@ -88,6 +89,18 @@ def issue_data(text):
     }
 
 
+def github_create_command(repository, data, body_file="ISSUE.md"):
+    parts = [
+        "gh", "issue", "create",
+        "--repo", repository,
+        "--title", data["title"],
+        "--body-file", body_file,
+    ]
+    for label in data.get("labels", []):
+        parts.extend(["--label", label])
+    return " ".join(shlex.quote(part) for part in parts)
+
+
 def render_issue(text):
     data = issue_data(text)
     output = [
@@ -166,6 +179,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description="Turn rough bug text into a GitHub issue.")
     parser.add_argument("input", help="Input file, or '-' for stdin")
     parser.add_argument("--format", choices=["markdown", "json"], default="markdown", help="Output format")
+    parser.add_argument("--github-url", help="Print a gh issue create command for owner/repo")
     parser.add_argument("--ai", action="store_true", help="Use an OpenAI-compatible model to polish the issue")
     parser.add_argument("--model", help="Override AI_MODEL for --ai")
     parser.add_argument("--base-url", help="Override AI_BASE_URL for --ai")
@@ -183,6 +197,9 @@ def main(argv=None):
             handle.write(result)
     else:
         sys.stdout.write(result)
+    if args.github_url:
+        data = issue_data(raw)
+        sys.stdout.write("\n## GitHub CLI\n\n```bash\n%s\n```\n" % github_create_command(args.github_url, data))
 
 
 if __name__ == "__main__":

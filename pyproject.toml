@@ -6,6 +6,21 @@ readme = "README.md"
 requires-python = ">=3.7"
 license = { text = "MIT" }
 authors = [{ name = "Issue Shaper AI contributors" }]
+keywords = ["ai", "github-issues", "bug-report", "triage", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Bug Tracking",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/niuxinhuai/issue-shaper-ai"
+Repository = "https://github.com/niuxinhuai/issue-shaper-ai"
+Issues = "https://github.com/niuxinhuai/issue-shaper-ai/issues"
 
 [project.scripts]
 issue-shaper-ai = "issue_shaper_ai.__main__:main"
