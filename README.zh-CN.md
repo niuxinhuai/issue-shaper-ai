@@ -21,9 +21,25 @@ Issue Shaper AI 不配置模型也能用规则提取字段并生成结构化 iss
 
 ## 安装
 
+在包发布到 PyPI 之前，可以直接从 GitHub 安装：
+
+```bash
+pipx install git+https://github.com/niuxinhuai/issue-shaper-ai.git
+```
+
+也可以使用 pip：
+
+```bash
+python3 -m pip install git+https://github.com/niuxinhuai/issue-shaper-ai.git
+```
+
+本地开发安装：
+
 ```bash
 python3 -m pip install -e .
 ```
+
+也可以从最新 GitHub Release 下载 wheel 和 sdist： https://github.com/niuxinhuai/issue-shaper-ai/releases/latest
 
 ## 使用
 
@@ -52,7 +68,7 @@ python3 -m unittest discover -s tests
 
 ## 发布
 
-推送 tag 后，GitHub Actions 会构建 Python 包并创建 GitHub Release。PyPI 发布默认关闭；若要发布到 PyPI，请先配置 Trusted Publishing，并设置仓库变量 ，然后推送 tag：
+推送 tag 后，GitHub Actions 会构建 Python 包并创建 GitHub Release。PyPI 发布默认关闭；若要发布到 PyPI，请先配置 Trusted Publishing，并设置仓库变量 `PUBLISH_TO_PYPI=true`，然后推送 tag：
 
 ```bash
 git tag v0.1.0
