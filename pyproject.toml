@@ -1,0 +1,15 @@
+[project]
+name = "issue-shaper-ai"
+version = "0.1.0"
+description = "Turn rough bug reports and logs into structured GitHub issues."
+readme = "README.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+authors = [{ name = "Issue Shaper AI contributors" }]
+
+[project.scripts]
+issue-shaper-ai = "issue_shaper_ai.__main__:main"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
